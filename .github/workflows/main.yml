@@ -2,7 +2,7 @@ name: Build and Deploy
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   build:
@@ -18,6 +18,15 @@ jobs:
 
       - name: Install NPM packages (use Yarn)
         run: yarn install --frozen-lockfile
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+          architecture: "x64"
+
+      - name: Install dependencies
+        run: pip install stickytape
 
       - name: Build
         run: yarn run build
